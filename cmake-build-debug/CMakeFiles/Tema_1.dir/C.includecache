@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ursaciuc/_Work/computer-networks/loginService.h
+models.h
+/home/ursaciuc/_Work/computer-networks/models.h
+
+/home/ursaciuc/_Work/computer-networks/main.c
+sys/types.h
+-
+sys/socket.h
+-
+stdio.h
+-
+unistd.h
+-
+stdlib.h
+-
+string.h
+-
+models.h
+/home/ursaciuc/_Work/computer-networks/models.h
+terminalHelper.h
+/home/ursaciuc/_Work/computer-networks/terminalHelper.h
+loginService.h
+/home/ursaciuc/_Work/computer-networks/loginService.h
+
+/home/ursaciuc/_Work/computer-networks/models.h
+
+/home/ursaciuc/_Work/computer-networks/terminalHelper.h
+string.h
+-
+models.h
+/home/ursaciuc/_Work/computer-networks/models.h
+
