@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Argument.h"
+
 struct Command
 {
-    char *value;
-    char **arguments;
+    char value[256];
+    struct Argument arguments[10];
 
-    int argumentsLength;
+    int argumentsCount;
 };

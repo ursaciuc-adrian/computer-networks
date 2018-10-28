@@ -1,5 +1,5 @@
 #include <string.h>
-#include "models.h"
+#include "../Models/Command.h"
 
 struct Command deserializeInput(char *inputString)
 {

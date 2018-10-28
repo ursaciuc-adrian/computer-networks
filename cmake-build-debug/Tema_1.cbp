@@ -78,22 +78,22 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/Handlers/LogInHandler.h">
+			<Option target="Tema_1"/>
+		</Unit>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/Helpers/TerminalHelper.h">
+			<Option target="Tema_1"/>
+		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/Models/Argument.h">
 			<Option target="Tema_1"/>
 		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/Models/Command.h">
 			<Option target="Tema_1"/>
 		</Unit>
-		<Unit filename="/home/ursaciuc/_Work/computer-networks/loginService.h">
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/Models/LogInData.h">
 			<Option target="Tema_1"/>
 		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/main.c">
-			<Option target="Tema_1"/>
-		</Unit>
-		<Unit filename="/home/ursaciuc/_Work/computer-networks/models.h">
-			<Option target="Tema_1"/>
-		</Unit>
-		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminalHelper.h">
 			<Option target="Tema_1"/>
 		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/CMakeLists.txt">

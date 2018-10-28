@@ -5,24 +5,26 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "models.h"
-#include "terminalHelper.h"
-#include "loginService.h"
+#include "Helpers/TerminalHelper.h"
+#include "Handlers/LogInHandler.h"
 
 #define BUFF_SIZE 256
 
-void handleCommand(char *inputString)
+struct LogInData logInData;
+
+void handleCommand(char *inputString, char *response)
 {
     struct Command command = deserializeInput(inputString);
 
     if (strcmp(command.value, "login") == 0)
     {
-        logIn(command);
+        logIn(command, response, &logInData);
     }
 }
 
 void readCommand()
 {
+
     int sockets[2], parent;
 
     if (socketpair(AF_UNIX, SOCK_STREAM, 0, sockets) < 0)
@@ -46,9 +48,9 @@ void readCommand()
                 char command[BUFF_SIZE];
                 char response[BUFF_SIZE];
 
-                if(isLogged == true)
+                if(logInData.isLogged == true)
                 {
-                    printf("%s> ", loggedUser);
+                    printf("%s> ", logInData.username);
                 }
                 else
                 {
@@ -68,7 +70,7 @@ void readCommand()
                     printf("[PARENT] Error occurred while reading.\n");
                 }
 
-                // printf("[parinte] %s\n", response);
+                printf("Response: %s", response);
             }
 
             close(sockets[1]);
@@ -87,7 +89,7 @@ void readCommand()
                     printf("[CHILD] Error occurred while reading.\n");
                 }
 
-                handleCommand(command);
+                handleCommand(command, &response);
 
                 if (write(sockets[0], response, sizeof(response)) < 0)
                 {

@@ -1,8 +1,6 @@
-//
-// Created by ursaciuc on 28.10.2018.
-//
+#pragma once
 
-#ifndef TEMA_1_ARGUMENT_H
-#define TEMA_1_ARGUMENT_H
-
-#endif //TEMA_1_ARGUMENT_H
+struct Argument
+{
+    char value[256];
+};
