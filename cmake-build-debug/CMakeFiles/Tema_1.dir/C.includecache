@@ -7,6 +7,16 @@
 #IncludeRegexTransform: 
 
 /home/ursaciuc/_Work/computer-networks/loginService.h
+stdio.h
+-
+unistd.h
+-
+stdlib.h
+-
+string.h
+-
+stdbool.h
+-
 models.h
 /home/ursaciuc/_Work/computer-networks/models.h
 

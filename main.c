@@ -9,7 +9,9 @@
 #include "terminalHelper.h"
 #include "loginService.h"
 
-void handleCommand(char inputString[])
+#define BUFF_SIZE 256
+
+void handleCommand(char *inputString)
 {
     struct Command command = deserializeInput(inputString);
 
@@ -19,55 +21,88 @@ void handleCommand(char inputString[])
     }
 }
 
-int main()
+void readCommand()
 {
-    int sockp[2], parent;
-    char command[1024];
+    int sockets[2], parent;
 
-    printf("Better than linux terminal. (v0.0.0.1-pre-pre-alpha)\n\n");
-
-    if (socketpair(AF_UNIX, SOCK_STREAM, 0, sockp) < 0)
+    if (socketpair(AF_UNIX, SOCK_STREAM, 0, sockets) < 0)
     {
-        perror("Err... socketpair");
+        printf("Error occurred on socketpair.\n");
         exit(1);
     }
 
     if ((parent = fork()) == -1)
     {
-        perror("Err...fork");
+        printf("Error occurred on fork.\n");
     }
     else
     {
         if (parent)
         {
-            close(sockp[0]);
-            char r_msg[1024];
+            close(sockets[0]);
 
-            printf("> ");
-            scanf("%[^\n]s", r_msg);
-
-            if (write(sockp[1], r_msg, sizeof(r_msg)) < 0)
+            for (int i = 0; i < 5; ++i)
             {
-                perror("[parinte]Err...write");
+                char command[BUFF_SIZE];
+                char response[BUFF_SIZE];
+
+                if(isLogged == true)
+                {
+                    printf("%s> ", loggedUser);
+                }
+                else
+                {
+                    printf("> ");
+                }
+
+                fgets(command, sizeof(command), stdin);
+                command[strlen(command) - 1] = '\0';
+
+                if (write(sockets[1], command, sizeof(command)) < 0)
+                {
+                    printf("[PARENT] Error occurred while writing.\n");
+                }
+
+                if (read(sockets[1], response, sizeof(response)) < 0)
+                {
+                    printf("[PARENT] Error occurred while reading.\n");
+                }
+
+                // printf("[parinte] %s\n", response);
             }
 
-            close(sockp[1]);
+            close(sockets[1]);
         }
         else
         {
-            close(sockp[1]);
+            close(sockets[1]);
 
-            if (read(sockp[0], command, 1024) < 0)
+            for (int i = 0; i < 5; ++i)
             {
-                perror("[copil]Err..read");
+                char command[BUFF_SIZE];
+                char response[BUFF_SIZE];
+
+                if (read(sockets[0], command, sizeof(command)) < 0)
+                {
+                    printf("[CHILD] Error occurred while reading.\n");
+                }
+
+                handleCommand(command);
+
+                if (write(sockets[0], response, sizeof(response)) < 0)
+                {
+                    printf("[CHILD] Error occurred while writing.\n");
+                }
             }
 
-            //printf("%s", command);
-            handleCommand(command);
-
-            /*printf("[copil]  %s\n", loggedUser);*/
-
-            close(sockp[0]);
+            close(sockets[0]);
         }
     }
+}
+
+int main()
+{
+    printf("Better than linux terminal. (v0.0.0.1-pre-pre-alpha)\n\n");
+
+    readCommand();
 }

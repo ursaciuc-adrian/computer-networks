@@ -1,7 +1,7 @@
 #include <string.h>
 #include "models.h"
 
-struct Command deserializeInput(char inputString[])
+struct Command deserializeInput(char *inputString)
 {
     struct Command command;
     command.argumentsCount = 0;

@@ -78,6 +78,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/Models/Argument.h">
+			<Option target="Tema_1"/>
+		</Unit>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/Models/Command.h">
+			<Option target="Tema_1"/>
+		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/loginService.h">
 			<Option target="Tema_1"/>
 		</Unit>
