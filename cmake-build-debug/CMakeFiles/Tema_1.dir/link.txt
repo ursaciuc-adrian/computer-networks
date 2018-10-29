@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/Tema_1.dir/main.c.o  -o Tema_1 
