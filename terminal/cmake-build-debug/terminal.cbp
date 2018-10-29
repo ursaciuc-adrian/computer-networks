@@ -84,6 +84,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Handlers/Container.h">
+			<Option target="terminal"/>
+		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Handlers/Handler.h">
 			<Option target="terminal"/>
 		</Unit>
@@ -93,10 +96,25 @@
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Handlers/LogInHandler.h">
 			<Option target="terminal"/>
 		</Unit>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Handlers/MyFindHandler.cpp">
+			<Option target="terminal"/>
+		</Unit>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Handlers/MyFindHandler.h">
+			<Option target="terminal"/>
+		</Unit>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Handlers/MyStatHandler.cpp">
+			<Option target="terminal"/>
+		</Unit>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Handlers/MyStatHandler.h">
+			<Option target="terminal"/>
+		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Handlers/QuitHandler.cpp">
 			<Option target="terminal"/>
 		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Handlers/QuitHandler.h">
+			<Option target="terminal"/>
+		</Unit>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Helpers/FileHelper.h">
 			<Option target="terminal"/>
 		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Helpers/TermianlHelper.h">

@@ -9,13 +9,16 @@ LogInHandler::LogInHandler()
 
 }
 
-bool LogInHandler::CanHandle(const Command *command)
+bool LogInHandler::CanHandle(const Command *com)
 {
-    if (command->value == "login")
+    response = "";
+
+    if (com->value == "login")
     {
-        if(command->GetArgument(0) != NULL)
+        if(com->GetArgument(0) != NULL)
         {
-            this->command = command;
+
+            this->command = com;
             return true;
         }
 
@@ -27,6 +30,9 @@ bool LogInHandler::CanHandle(const Command *command)
 
 void LogInHandler::Handle()
 {
+    this->LogOut();
+    response = "";
+
     std::ifstream fin(DATABASE);
 
     if(!fin)
@@ -41,17 +47,28 @@ void LogInHandler::Handle()
         fin.getline(str, 100);
         if(str == command->GetArgument(0)->value)
         {
-            this->isLoggedIn = true;
-            this->username = command->GetArgument(0)->value;
+            isLoggedIn = true;
+            username = command->GetArgument(0)->value;
 
-            response = "Welcome " + this->username + "!";
+            response = "Welcome " + username + "!";
         }
     }
 
     fin.close();
+
+    if(isLoggedIn == false)
+    {
+        response = "Invalid username.";
+    }
 }
 
 bool LogInHandler::IsLoggedIn()
 {
     return isLoggedIn;
+}
+
+void LogInHandler::LogOut()
+{
+    this->isLoggedIn = false;
+    this->username = "";
 }

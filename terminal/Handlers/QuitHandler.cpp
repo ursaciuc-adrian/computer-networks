@@ -1,11 +1,14 @@
 #include <iostream>
 #include "QuitHandler.h"
 
-bool QuitHandler::CanHandle(const Command *command)
+bool QuitHandler::CanHandle(const Command *com)
 {
-    if(command->value == "quit")
+    response = "";
+
+    if(com->value == "quit")
     {
-        this->command = command;
+        command = com;
+        response = "da";
         return true;
     }
 

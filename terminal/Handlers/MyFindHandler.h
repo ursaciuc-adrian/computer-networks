@@ -3,18 +3,11 @@
 #include "../Models/Command.h"
 #include "Handler.h"
 
-class LogInHandler: public Handler
+class MyFindHandler: public Handler
 {
-    bool isLoggedIn;
-    void LogOut();
-
 public:
-    std::string username;
-
-    LogInHandler();
+    MyFindHandler();
 
     virtual bool CanHandle(const Command *command);
     virtual void Handle();
-
-    bool IsLoggedIn();
 };

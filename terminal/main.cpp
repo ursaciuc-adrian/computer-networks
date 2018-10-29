@@ -7,19 +7,96 @@
 #include "Handlers/LogInHandler.h"
 #include "Handlers/QuitHandler.h"
 #include "Handlers/Handler.h"
+#include "Handlers/Container.h"
+#include "Handlers/MyFindHandler.h"
+#include "Handlers/MyStatHandler.h"
 
-#define BUFF_SIZE 256
+Container container;
+
+void ParentProcess(int socket)
+{
+    //parinte
+    for(int i = 0; i < 5; ++i)
+    {
+        std::string inputString;
+        char response[256];
+
+        if(container.logInHandler.IsLoggedIn() == true)
+        {
+            std::cout << container.logInHandler.username << "> ";
+        }
+        else
+        {
+            std::cout << "> ";
+        }
+
+        std::getline(std::cin, container.command);
+
+        if (write(socket, &container, sizeof(container)) < 0)
+        {
+            printf("[PARENT] Error occurred while writing.\n");
+        }
+
+        if (read(socket, &container, sizeof(container)) < 0)
+        {
+            printf("[PARENT] Error occurred while reading.\n");
+        }
+    }
+
+    close(socket);
+}
+
+void ChildProcess(int socket)
+{
+    for(int i = 0; i < 5; ++i)
+    {
+        if (read(socket, &container, sizeof(container)) < 0)
+        {
+            printf("[CHILD] Error occurred while reading.\n");
+        }
+
+        const Command *command = deserializeInput(container.command);
+
+        for(auto *handler: container.handlers)
+        {
+            if(handler->CanHandle(command))
+            {
+                handler->Handle();
+
+                if(handler->HasResponse())
+                {
+                    std::cout<< handler->GetResponse() << std::endl;
+                }
+
+                break;
+            }
+            else
+            {
+                if(handler->HasResponse())
+                {
+                    std::cout<< handler->GetResponse() << std::endl;
+                }
+            }
+        }
+
+        if (write(socket, &container, sizeof(container)) < 0)
+        {
+            printf("[CHILD] Error occurred while writing.\n");
+        }
+    }
+
+    close(socket);
+}
 
 int main()
 {
+    container.logInHandler = LogInHandler();
+    container.handlers.push_back(&container.logInHandler);
+    container.handlers.push_back(new QuitHandler());
+    container.handlers.push_back(new MyFindHandler());
+    container.handlers.push_back(new MyStatHandler());
+
     std::cout << "Better than linux terminal. (v0.0.2)" << std::endl << std::endl;
-
-    LogInHandler *logInHandler = new LogInHandler();
-    QuitHandler *quitHandler = new QuitHandler();
-
-    std::vector<Handler*> handlers;
-    handlers.push_back(logInHandler);
-    handlers.push_back(quitHandler);
 
     int sockets[2], parent;
 
@@ -39,80 +116,13 @@ int main()
         {
             close(sockets[0]);
 
-            for (int i = 0; i < 5; ++i)
-            {
-                std::string inputString;
-                char response[256];
-
-                if(logInHandler->IsLoggedIn() == true)
-                {
-                    std::cout << logInHandler->username << "> ";
-                }
-                else
-                {
-                    std::cout << "> ";
-                }
-
-                std::getline(std::cin, inputString);
-
-                if (write(sockets[1], inputString.c_str(), sizeof(inputString)) < 0)
-                {
-                    printf("[PARENT] Error occurred while writing.\n");
-                }
-
-                if (read(sockets[1], response, sizeof(response)) < 0)
-                {
-                    printf("[PARENT] Error occurred while reading.\n");
-                }
-
-                std::cout << response << std::endl;
-            }
-
-            close(sockets[1]);
+            ParentProcess(sockets[1]);
         }
         else
         {
             close(sockets[1]);
 
-            for (int i = 0; i < 5; ++i)
-            {
-                char inputString[256];
-
-                if (read(sockets[0], inputString, sizeof(inputString)) < 0)
-                {
-                    printf("[CHILD] Error occurred while reading.\n");
-                }
-
-                const Command *command = deserializeInput(inputString);
-
-                for(auto *handler: handlers)
-                {
-                    if(handler->CanHandle(command))
-                    {
-                        handler->Handle();
-
-                        if(handler->HasResponse())
-                        {
-                            if (write(sockets[0], handler, sizeof(handler) < 0))
-                            {
-                                printf("[CHILD] Error occurred while writing.\n");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if(handler->HasResponse())
-                        {
-                            if (write(sockets[0], handler->GetResponse().c_str(), sizeof(handler->GetResponse())) < 0)
-                            {
-                                printf("[CHILD] Error occurred while writing.\n");
-                            }
-                        }
-                    }
-                }
-            }
-
-            close(sockets[0]);
+            ChildProcess(sockets[0]);
         }
     }
 

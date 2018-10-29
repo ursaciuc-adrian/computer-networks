@@ -150,6 +150,60 @@ Handlers/LogInHandler.cpp.s:
 	$(MAKE) -f CMakeFiles/terminal.dir/build.make CMakeFiles/terminal.dir/Handlers/LogInHandler.cpp.s
 .PHONY : Handlers/LogInHandler.cpp.s
 
+Handlers/MyFindHandler.o: Handlers/MyFindHandler.cpp.o
+
+.PHONY : Handlers/MyFindHandler.o
+
+# target to build an object file
+Handlers/MyFindHandler.cpp.o:
+	$(MAKE) -f CMakeFiles/terminal.dir/build.make CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.o
+.PHONY : Handlers/MyFindHandler.cpp.o
+
+Handlers/MyFindHandler.i: Handlers/MyFindHandler.cpp.i
+
+.PHONY : Handlers/MyFindHandler.i
+
+# target to preprocess a source file
+Handlers/MyFindHandler.cpp.i:
+	$(MAKE) -f CMakeFiles/terminal.dir/build.make CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.i
+.PHONY : Handlers/MyFindHandler.cpp.i
+
+Handlers/MyFindHandler.s: Handlers/MyFindHandler.cpp.s
+
+.PHONY : Handlers/MyFindHandler.s
+
+# target to generate assembly for a file
+Handlers/MyFindHandler.cpp.s:
+	$(MAKE) -f CMakeFiles/terminal.dir/build.make CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.s
+.PHONY : Handlers/MyFindHandler.cpp.s
+
+Handlers/MyStatHandler.o: Handlers/MyStatHandler.cpp.o
+
+.PHONY : Handlers/MyStatHandler.o
+
+# target to build an object file
+Handlers/MyStatHandler.cpp.o:
+	$(MAKE) -f CMakeFiles/terminal.dir/build.make CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.o
+.PHONY : Handlers/MyStatHandler.cpp.o
+
+Handlers/MyStatHandler.i: Handlers/MyStatHandler.cpp.i
+
+.PHONY : Handlers/MyStatHandler.i
+
+# target to preprocess a source file
+Handlers/MyStatHandler.cpp.i:
+	$(MAKE) -f CMakeFiles/terminal.dir/build.make CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.i
+.PHONY : Handlers/MyStatHandler.cpp.i
+
+Handlers/MyStatHandler.s: Handlers/MyStatHandler.cpp.s
+
+.PHONY : Handlers/MyStatHandler.s
+
+# target to generate assembly for a file
+Handlers/MyStatHandler.cpp.s:
+	$(MAKE) -f CMakeFiles/terminal.dir/build.make CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.s
+.PHONY : Handlers/MyStatHandler.cpp.s
+
 Handlers/QuitHandler.o: Handlers/QuitHandler.cpp.o
 
 .PHONY : Handlers/QuitHandler.o
@@ -270,6 +324,12 @@ help:
 	@echo "... Handlers/LogInHandler.o"
 	@echo "... Handlers/LogInHandler.i"
 	@echo "... Handlers/LogInHandler.s"
+	@echo "... Handlers/MyFindHandler.o"
+	@echo "... Handlers/MyFindHandler.i"
+	@echo "... Handlers/MyFindHandler.s"
+	@echo "... Handlers/MyStatHandler.o"
+	@echo "... Handlers/MyStatHandler.i"
+	@echo "... Handlers/MyStatHandler.s"
 	@echo "... Handlers/QuitHandler.o"
 	@echo "... Handlers/QuitHandler.i"
 	@echo "... Handlers/QuitHandler.s"

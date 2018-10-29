@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/terminal.dir/Models/Argument.cpp.o"
   "CMakeFiles/terminal.dir/Handlers/LogInHandler.cpp.o"
   "CMakeFiles/terminal.dir/Handlers/QuitHandler.cpp.o"
+  "CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.o"
+  "CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.o"
   "terminal.pdb"
   "terminal"
 )

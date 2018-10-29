@@ -9,20 +9,21 @@
 
 const Command* deserializeInput(std::string inputString)
 {
-    Command *command = new Command();
+    auto *command = new Command();
+    
 
     std::istringstream buf(inputString);
     std::istream_iterator<std::string> beg(buf), end;
 
     std::vector<std::string> tokens(beg, end);
 
-    bool firstToken = false;
+    bool firstToken = true;
     for(auto& s: tokens)
     {
-        if(firstToken == false)
+        if(firstToken)
         {
             command->value = s;
-            firstToken = true;
+            firstToken = false;
         }
         else
         {

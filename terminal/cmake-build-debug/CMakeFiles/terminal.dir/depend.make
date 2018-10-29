@@ -7,6 +7,20 @@ CMakeFiles/terminal.dir/Handlers/LogInHandler.cpp.o: ../Handlers/LogInHandler.h
 CMakeFiles/terminal.dir/Handlers/LogInHandler.cpp.o: ../Models/Argument.h
 CMakeFiles/terminal.dir/Handlers/LogInHandler.cpp.o: ../Models/Command.h
 
+CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.o: ../Handlers/Handler.h
+CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.o: ../Handlers/MyFindHandler.cpp
+CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.o: ../Handlers/MyFindHandler.h
+CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.o: ../Helpers/FileHelper.h
+CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.o: ../Models/Argument.h
+CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.o: ../Models/Command.h
+
+CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.o: ../Handlers/Handler.h
+CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.o: ../Handlers/MyStatHandler.cpp
+CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.o: ../Handlers/MyStatHandler.h
+CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.o: ../Helpers/FileHelper.h
+CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.o: ../Models/Argument.h
+CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.o: ../Models/Command.h
+
 CMakeFiles/terminal.dir/Handlers/QuitHandler.cpp.o: ../Handlers/Handler.h
 CMakeFiles/terminal.dir/Handlers/QuitHandler.cpp.o: ../Handlers/QuitHandler.cpp
 CMakeFiles/terminal.dir/Handlers/QuitHandler.cpp.o: ../Handlers/QuitHandler.h
@@ -20,8 +34,11 @@ CMakeFiles/terminal.dir/Models/Command.cpp.o: ../Models/Argument.h
 CMakeFiles/terminal.dir/Models/Command.cpp.o: ../Models/Command.cpp
 CMakeFiles/terminal.dir/Models/Command.cpp.o: ../Models/Command.h
 
+CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/Container.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/Handler.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/LogInHandler.h
+CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/MyFindHandler.h
+CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/MyStatHandler.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/QuitHandler.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Helpers/TermianlHelper.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Models/Argument.h

@@ -10,7 +10,7 @@ public:
     Command();
     Command(std::string command);
     void AddArgument(std::string arg);
-    const Argument * GetArgument(int index) const;
+    const Argument * GetArgument(unsigned long index) const;
 private:
     std::vector<Argument*> arguments;
 };
