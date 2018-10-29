@@ -1,3 +1,0 @@
-/home/ursaciuc/_Work/computer-networks/terminal/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/ursaciuc/_Work/computer-networks/terminal/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/ursaciuc/_Work/computer-networks/terminal/cmake-build-debug/CMakeFiles/terminal.dir

@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/terminal.dir/main.cpp.o CMakeFiles/terminal.dir/Models/Command.cpp.o CMakeFiles/terminal.dir/Models/Argument.cpp.o CMakeFiles/terminal.dir/Handlers/LogInHandler.cpp.o CMakeFiles/terminal.dir/Handlers/QuitHandler.cpp.o CMakeFiles/terminal.dir/Handlers/MyFindHandler.cpp.o CMakeFiles/terminal.dir/Handlers/MyStatHandler.cpp.o  -o terminal 
