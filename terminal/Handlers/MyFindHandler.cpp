@@ -5,6 +5,16 @@
 #include "MyFindHandler.h"
 #include "../Helpers/FileHelper.h"
 
+MyFindHandler::MyFindHandler()
+{
+    this->mustBeLoggedIn = false;
+}
+
+MyFindHandler::MyFindHandler(bool mustBeLoggedIn)
+{
+    this->mustBeLoggedIn = mustBeLoggedIn;
+}
+
 bool MyFindHandler::CanHandle(const Command *com)
 {
     response = "";
@@ -27,9 +37,8 @@ bool MyFindHandler::CanHandle(const Command *com)
 
 void MyFindHandler::Handle()
 {
-    total = 0;
-    std::cout<<"Arg: "<<command->GetArgument(0)->value << std::endl;
-    std::string pathToFile = FindFile("./", "Argumednt.h");
+    std::string pathToFile = FindFile("./", command->GetArgument(0)->value);
+
     if(pathToFile.empty())
     {
         response = "File not found.";
@@ -40,9 +49,5 @@ void MyFindHandler::Handle()
     }
 }
 
-MyFindHandler::MyFindHandler()
-{
-
-}
 
 

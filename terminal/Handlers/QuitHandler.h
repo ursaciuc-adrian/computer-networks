@@ -7,7 +7,8 @@ class QuitHandler: public Handler
 {
 public:
     QuitHandler();
+    QuitHandler(bool mustBeLoggedIn);
 
-    virtual bool CanHandle(const Command *command);
-    virtual void Handle();
+    bool CanHandle(const Command *command) override;
+    void Handle() override;
 };

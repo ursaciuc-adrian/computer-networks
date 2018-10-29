@@ -2,6 +2,16 @@
 #include "MyStatHandler.h"
 #include "../Helpers/FileHelper.h"
 
+MyStatHandler::MyStatHandler()
+{
+    this->mustBeLoggedIn = false;
+}
+
+MyStatHandler::MyStatHandler(bool mustBeLoggedIn)
+{
+    this->mustBeLoggedIn = mustBeLoggedIn;
+}
+
 bool MyStatHandler::CanHandle(const Command *com)
 {
     response = "";
@@ -25,11 +35,6 @@ bool MyStatHandler::CanHandle(const Command *com)
 void MyStatHandler::Handle()
 {
     response = GetFileInfo("./users.txt");
-}
-
-MyStatHandler::MyStatHandler()
-{
-
 }
 
 

@@ -6,7 +6,12 @@
 
 LogInHandler::LogInHandler()
 {
+    this->mustBeLoggedIn = false;
+}
 
+LogInHandler::LogInHandler(bool mustBeLoggedIn)
+{
+    this->mustBeLoggedIn = mustBeLoggedIn;
 }
 
 bool LogInHandler::CanHandle(const Command *com)
@@ -72,3 +77,4 @@ void LogInHandler::LogOut()
     this->isLoggedIn = false;
     this->username = "";
 }
+

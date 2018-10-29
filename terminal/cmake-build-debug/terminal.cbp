@@ -117,6 +117,9 @@
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Helpers/FileHelper.h">
 			<Option target="terminal"/>
 		</Unit>
+		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Helpers/PipeHelper.h">
+			<Option target="terminal"/>
+		</Unit>
 		<Unit filename="/home/ursaciuc/_Work/computer-networks/terminal/Helpers/TermianlHelper.h">
 			<Option target="terminal"/>
 		</Unit>

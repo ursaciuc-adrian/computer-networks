@@ -41,6 +41,7 @@ CMakeFiles/terminal.dir/main.cpp.o
  /home/ursaciuc/_Work/computer-networks/terminal/Handlers/MyFindHandler.h
  /home/ursaciuc/_Work/computer-networks/terminal/Handlers/MyStatHandler.h
  /home/ursaciuc/_Work/computer-networks/terminal/Handlers/QuitHandler.h
+ /home/ursaciuc/_Work/computer-networks/terminal/Helpers/PipeHelper.h
  /home/ursaciuc/_Work/computer-networks/terminal/Helpers/TermianlHelper.h
  /home/ursaciuc/_Work/computer-networks/terminal/Models/Argument.h
  /home/ursaciuc/_Work/computer-networks/terminal/Models/Command.h

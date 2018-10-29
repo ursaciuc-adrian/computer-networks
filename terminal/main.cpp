@@ -1,6 +1,9 @@
+#include <utility>
+
 #include <iostream>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <wait.h>
 
 #include "Models/Command.h"
 #include "Helpers/TermianlHelper.h"
@@ -10,37 +13,52 @@
 #include "Handlers/Container.h"
 #include "Handlers/MyFindHandler.h"
 #include "Handlers/MyStatHandler.h"
+#include "Helpers/PipeHelper.h"
 
 Container container;
 
-void ParentProcess(int socket)
+std::string HandleCommand(const std::string &str)
 {
-    //parinte
-    for(int i = 0; i < 5; ++i)
-    {
-        std::string inputString;
-        char response[256];
+    const Command *command = deserializeInput(str);
 
-        if(container.logInHandler.IsLoggedIn() == true)
+    for(auto *handler: container.handlers)
+    {
+        if(handler->CanHandle(command))
         {
-            std::cout << container.logInHandler.username << "> ";
+            handler->Handle();
+
+            if(handler->HasResponse())
+            {
+                return handler->GetResponse();
+            }
+
+            break;
         }
         else
         {
-            std::cout << "> ";
+            if(handler->HasResponse())
+            {
+                return handler->GetResponse();
+            }
         }
+    }
 
-        std::getline(std::cin, container.command);
+    return "";
+}
 
-        if (write(socket, &container, sizeof(container)) < 0)
-        {
-            printf("[PARENT] Error occurred while writing.\n");
-        }
+void ParentProcess(int socket)
+{
+    for(int i = 0; i < 5; ++i)
+    {
+        std::string str;
 
-        if (read(socket, &container, sizeof(container)) < 0)
-        {
-            printf("[PARENT] Error occurred while reading.\n");
-        }
+        std::cout << "> ";
+        std::getline(std::cin, str);
+
+        Write(socket, str);
+        Read(socket, str);
+
+        std::cout<<str<<std::endl;
     }
 
     close(socket);
@@ -50,39 +68,11 @@ void ChildProcess(int socket)
 {
     for(int i = 0; i < 5; ++i)
     {
-        if (read(socket, &container, sizeof(container)) < 0)
-        {
-            printf("[CHILD] Error occurred while reading.\n");
-        }
+        std::string str;
 
-        const Command *command = deserializeInput(container.command);
+        Read(socket, str);
 
-        for(auto *handler: container.handlers)
-        {
-            if(handler->CanHandle(command))
-            {
-                handler->Handle();
-
-                if(handler->HasResponse())
-                {
-                    std::cout<< handler->GetResponse() << std::endl;
-                }
-
-                break;
-            }
-            else
-            {
-                if(handler->HasResponse())
-                {
-                    std::cout<< handler->GetResponse() << std::endl;
-                }
-            }
-        }
-
-        if (write(socket, &container, sizeof(container)) < 0)
-        {
-            printf("[CHILD] Error occurred while writing.\n");
-        }
+        Write(socket, HandleCommand(str));
     }
 
     close(socket);
@@ -90,8 +80,7 @@ void ChildProcess(int socket)
 
 int main()
 {
-    container.logInHandler = LogInHandler();
-    container.handlers.push_back(&container.logInHandler);
+    container.handlers.push_back(new LogInHandler());
     container.handlers.push_back(new QuitHandler());
     container.handlers.push_back(new MyFindHandler());
     container.handlers.push_back(new MyStatHandler());

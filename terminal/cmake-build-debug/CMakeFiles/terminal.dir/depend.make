@@ -40,6 +40,7 @@ CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/LogInHandler.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/MyFindHandler.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/MyStatHandler.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Handlers/QuitHandler.h
+CMakeFiles/terminal.dir/main.cpp.o: ../Helpers/PipeHelper.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Helpers/TermianlHelper.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Models/Argument.h
 CMakeFiles/terminal.dir/main.cpp.o: ../Models/Command.h

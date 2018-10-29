@@ -7,27 +7,24 @@
 
 #include "../Models/Command.h"
 
-const Command* deserializeInput(std::string inputString)
+const Command* deserializeInput(const std::string &inputString)
 {
     auto *command = new Command();
-    
 
-    std::istringstream buf(inputString);
-    std::istream_iterator<std::string> beg(buf), end;
-
-    std::vector<std::string> tokens(beg, end);
+    std::istringstream iss(inputString);
+    std::string token;
 
     bool firstToken = true;
-    for(auto& s: tokens)
+    while (std::getline(iss, token, ' '))
     {
         if(firstToken)
         {
-            command->value = s;
+            command->value = token;
             firstToken = false;
         }
         else
         {
-            command->AddArgument(s);
+            command->AddArgument(token);
         }
     }
 

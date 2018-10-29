@@ -1,6 +1,16 @@
 #include <iostream>
 #include "QuitHandler.h"
 
+QuitHandler::QuitHandler()
+{
+    this->mustBeLoggedIn = false;
+}
+
+QuitHandler::QuitHandler(bool mustBeLoggedIn)
+{
+    this->mustBeLoggedIn = mustBeLoggedIn;
+}
+
 bool QuitHandler::CanHandle(const Command *com)
 {
     response = "";
@@ -19,11 +29,6 @@ void QuitHandler::Handle()
 {
     response = "See you later.";
     exit(0);
-}
-
-QuitHandler::QuitHandler()
-{
-
 }
 
 

@@ -7,9 +7,9 @@ class Handler
 protected:
     const Command *command;
     std::string response;
-
+    bool mustBeLoggedIn;
 public:
-    ~Handler() {}
+    ~Handler() = default;
 
     virtual bool CanHandle(const Command *command) = 0;
     virtual void Handle() = 0;
