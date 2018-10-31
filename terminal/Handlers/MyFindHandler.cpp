@@ -38,7 +38,16 @@ void MyFindHandler::Handle()
         return;
     }
 
-    std::string pathToFile = FindFile("./", command->GetArgument(0)->value);
+    std::string pathToFile;
+
+    if(command->GetArgument(1) != NULL)
+    {
+        pathToFile = FindFile(command->GetArgument(1)->value, command->GetArgument(0)->value);
+    }
+    else
+    {
+        pathToFile = FindFile("./", command->GetArgument(0)->value);
+    }
 
     if(pathToFile.empty())
     {
@@ -46,7 +55,8 @@ void MyFindHandler::Handle()
     }
     else
     {
-        response = pathToFile;
+        response = "Path: " + pathToFile + "\n";
+        response += GetFileInfo(pathToFile);
     }
 }
 

@@ -1,10 +1,13 @@
 #include <iostream>
 #include "QuitHandler.h"
+#include "../Helpers/CommunicationHelper.h"
 
-QuitHandler::QuitHandler(LogInService *logInService, bool mustBeLoggedIn)
+QuitHandler::QuitHandler(LogInService *logInService, bool mustBeLoggedIn, int parentSocket, int childSocket)
         :Handler(logInService)
 {
     this->mustBeLoggedIn = mustBeLoggedIn;
+    this->parentSocket = parentSocket;
+    this->childSocket = childSocket;
 }
 
 bool QuitHandler::CanHandle(const Command *com)
@@ -28,8 +31,11 @@ void QuitHandler::Handle()
         return;
     }
 
+    Close(childSocket);
+    Close(parentSocket);
+
     response = "See you later.";
-    exit(0);
+ //   exit(0);
 }
 
 

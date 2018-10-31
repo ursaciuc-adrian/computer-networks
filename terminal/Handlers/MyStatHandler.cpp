@@ -35,7 +35,7 @@ void MyStatHandler::Handle()
         return;
     }
 
-    response = GetFileInfo("./users.txt");
+    response = GetFileInfo(command->GetArgument(0)->value);
 }
 
 

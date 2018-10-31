@@ -20,3 +20,8 @@ static void Read(int socket, std::string &str)
     buffer[length] = '\0';
     str = buffer.data();
 }
+
+static void Close(int socket)
+{
+    close(socket);
+}

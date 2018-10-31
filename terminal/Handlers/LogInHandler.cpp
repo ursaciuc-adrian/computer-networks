@@ -62,4 +62,3 @@ void LogInHandler::Handle()
         response = "Invalid username.";
     }
 }
-
