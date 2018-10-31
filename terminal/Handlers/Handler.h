@@ -1,9 +1,8 @@
-#include <utility>
-
 #pragma once
 
 #include "../Models/Command.h"
 #include "../Services/LogInService.h"
+#include "../Models/Response.h"
 
 class Handler
 {
@@ -12,10 +11,11 @@ protected:
     bool mustBeLoggedIn{};
 
     const Command *command{};
-    std::string response;
+    Response response;
 public:
     explicit Handler(LogInService *logInService)
     {
+        this->response = Response();
         this->logInService = logInService;
     };
     ~Handler() = default;
@@ -25,10 +25,10 @@ public:
 
     bool HasResponse()
     {
-        return !response.empty();
+        return response.GetType() != ResponseType(None);
     }
 
-    std::string GetResponse()
+    Response GetResponse()
     {
         return response;
     }
@@ -43,7 +43,7 @@ public:
             }
             else
             {
-                response = "You must be logged in to execute this command.";
+                response = Response("You must be logged in to execute this command.", ResponseType(Error));
                 return false;
             }
         }

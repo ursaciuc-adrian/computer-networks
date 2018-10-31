@@ -7,8 +7,10 @@
 class Command {
 public:
     std::string value;
-    Command();
-    Command(std::string command);
+
+    Command() = default;;
+    explicit Command(std::string command);
+
     void AddArgument(std::string arg);
     const Argument * GetArgument(unsigned long index) const;
 private:

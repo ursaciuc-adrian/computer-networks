@@ -15,7 +15,7 @@
 
 Container container;
 
-std::string HandleCommand(const std::string &str)
+Response HandleCommand(const std::string &str)
 {
     const Command *command = deserializeInput(str);
 
@@ -41,38 +41,50 @@ std::string HandleCommand(const std::string &str)
         }
     }
 
-    return "";
+    return Response();
 }
 
 void ParentProcess(int socket)
 {
-    for(; ;)
-    {
-        std::string str;
+    std::string str;
+    Response response = Response();
 
+    while (response.GetType() != Quit)
+    {
         std::cout << "> ";
         std::getline(std::cin, str);
 
         Write(socket, str);
-        Read(socket, str);
 
-        std::cout<<str<<std::endl;
+        std::string value;
+        std::string type;
+        Read(socket, value);
+        Read(socket, type);
+
+        response = Response(value, type);
+
+        std::cout << response.GetValue() << std::endl;
     }
 
-    close(socket);
+    Close(socket);
 }
 
 void ChildProcess(int socket)
 {
-    for(; ;)
-    {
-        std::string str;
+    std::string str;
+    Response response = Response();
 
+    while (response.GetType() != Quit)
+    {
         Read(socket, str);
-        Write(socket, HandleCommand(str));
+
+        response = HandleCommand(str);
+
+        Write(socket, response.GetValue());
+        Write(socket, ResponseTypeMap[response.GetType()]);
     }
 
-    close(socket);
+    Close(socket);
 }
 
 int main()
@@ -80,12 +92,6 @@ int main()
     std::cout << "Better than linux terminal. (v0.0.3)" << std::endl << std::endl;
 
     int sockets[2], parent;
-
-    auto *logInService = new LogInService();
-    container.handlers.push_back(new LogInHandler(logInService, false));
-    container.handlers.push_back(new QuitHandler(logInService, false, sockets[1], sockets[0]));
-    container.handlers.push_back(new MyFindHandler(logInService, false));
-    container.handlers.push_back(new MyStatHandler(logInService, false));
 
     if (socketpair(AF_UNIX, SOCK_STREAM, 0, sockets) < 0)
     {
@@ -99,17 +105,23 @@ int main()
     }
     else
     {
+        auto *logInService = new LogInService();
+        container.handlers.push_back(new LogInHandler(logInService, false));
+        container.handlers.push_back(new QuitHandler(logInService, false));
+        container.handlers.push_back(new MyFindHandler(logInService, false));
+        container.handlers.push_back(new MyStatHandler(logInService, false));
+
         if (parent)
         {
-            close(sockets[0]);
+            Close(sockets[1]);
 
-            ParentProcess(sockets[1]);
+            ParentProcess(sockets[0]);
         }
         else
         {
-            close(sockets[1]);
+            Close(sockets[0]);
 
-            ChildProcess(sockets[0]);
+            ChildProcess(sockets[1]);
         }
     }
 

@@ -2,23 +2,40 @@
 #include <string>
 #include <vector>
 
-static void Write(int socket, const std::string &str)
+static int Write(int socket, const std::string &str)
 {
     unsigned long length = str.length();
-    write(socket, &length, sizeof(length));
-    write(socket, str.c_str(), length);
+    if(write(socket, &length, sizeof(length)) == -1)
+    {
+        return -1;
+    }
+
+    if(write(socket, str.c_str(), length) == -1)
+    {
+        return -1;
+    }
+
+    return 0;
 }
 
-static void Read(int socket, std::string &str)
+static int Read(int socket, std::string &str)
 {
     unsigned long length;
-    read(socket, &length, sizeof(length));
+    if(read(socket, &length, sizeof(length)) == -1)
+    {
+        return -1;
+    }
 
     std::vector<char> buffer(length + 1);
-    read(socket, buffer.data(), length);
+    if(read(socket, buffer.data(), length) == -1)
+    {
+        return -1;
+    }
 
     buffer[length] = '\0';
     str = buffer.data();
+
+    return 0;
 }
 
 static void Close(int socket)

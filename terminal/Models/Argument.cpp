@@ -4,10 +4,5 @@
 
 Argument::Argument(std::string arg)
 {
-    this->value = arg;
-}
-
-Argument::Argument()
-{
-
+    this->value = std::move(arg);
 }

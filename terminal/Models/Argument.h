@@ -5,6 +5,7 @@
 class Argument {
 public:
     std::string value;
-    Argument();
-    Argument(std::string arg);
+
+    Argument() = default;;
+    explicit Argument(std::string arg);
 };

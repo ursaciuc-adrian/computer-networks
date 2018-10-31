@@ -14,7 +14,7 @@ LogInHandler::LogInHandler(LogInService *logInService, bool mustBeLoggedIn)
 
 bool LogInHandler::CanHandle(const Command *com)
 {
-    response = "";
+    response = Response();
 
     if (com->value == "login")
     {
@@ -25,7 +25,7 @@ bool LogInHandler::CanHandle(const Command *com)
             return true;
         }
 
-        response = "Username not specified.";
+        response = Response("Username not specified.", ResponseType(Error));
     }
 
     return false;
@@ -33,32 +33,34 @@ bool LogInHandler::CanHandle(const Command *com)
 
 void LogInHandler::Handle()
 {
-    response = "";
+    response = Response();
 
     std::ifstream fin(DATABASE);
 
     if(!fin)
     {
-        response = "Error while opening the database.";
+        response = Response("Error while opening the database.", ResponseType(Error));
         return;
     }
 
     char str[100];
+    bool isUserValid = false;
     while(fin)
     {
         fin.getline(str, 100);
         if(str == command->GetArgument(0)->value)
         {
-            logInService->LogIn(command->GetArgument(0)->value);
+            isUserValid = true;
 
-            response = "Welcome " + logInService->GetUsername() + "!";
+            logInService->LogIn(command->GetArgument(0)->value);
+            response = Response("Welcome " + logInService->GetUsername() + "!", ResponseType(Success));
         }
     }
 
     fin.close();
 
-    if(!logInService->IsLoggdedIn())
+    if(!isUserValid)
     {
-        response = "Invalid username.";
+        response = Response("Invalid username.", ResponseType(Error));
     }
 }

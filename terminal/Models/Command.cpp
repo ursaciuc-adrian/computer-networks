@@ -24,8 +24,3 @@ const Argument * Command::GetArgument(unsigned long index) const
 
     return nullptr;
 }
-
-Command::Command()
-{
-
-}

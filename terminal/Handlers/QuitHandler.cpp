@@ -2,22 +2,19 @@
 #include "QuitHandler.h"
 #include "../Helpers/CommunicationHelper.h"
 
-QuitHandler::QuitHandler(LogInService *logInService, bool mustBeLoggedIn, int parentSocket, int childSocket)
+QuitHandler::QuitHandler(LogInService *logInService, bool mustBeLoggedIn)
         :Handler(logInService)
 {
     this->mustBeLoggedIn = mustBeLoggedIn;
-    this->parentSocket = parentSocket;
-    this->childSocket = childSocket;
 }
 
 bool QuitHandler::CanHandle(const Command *com)
 {
-    response = "";
+    response = Response();
 
     if(com->value == "quit")
     {
         command = com;
-        response = "da";
         return true;
     }
 
@@ -31,11 +28,5 @@ void QuitHandler::Handle()
         return;
     }
 
-    Close(childSocket);
-    Close(parentSocket);
-
-    response = "See you later.";
- //   exit(0);
+    response = Response("See you later...", Quit);
 }
-
-

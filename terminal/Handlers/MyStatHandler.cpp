@@ -10,7 +10,7 @@ MyStatHandler::MyStatHandler(LogInService *logInService, bool mustBeLoggedIn)
 
 bool MyStatHandler::CanHandle(const Command *com)
 {
-    response = "";
+    response = Response();
 
     if(com->value == "mystat")
     {
@@ -21,7 +21,7 @@ bool MyStatHandler::CanHandle(const Command *com)
         }
         else
         {
-            response = "No file provided.";
+            response = Response("No file provided.", Error);
         }
     }
 
@@ -35,7 +35,7 @@ void MyStatHandler::Handle()
         return;
     }
 
-    response = GetFileInfo(command->GetArgument(0)->value);
+    response = Response(GetFileInfo(command->GetArgument(0)->value), Success);
 }
 
 

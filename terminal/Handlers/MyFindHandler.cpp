@@ -13,7 +13,7 @@ MyFindHandler::MyFindHandler(LogInService *logInService, bool mustBeLoggedIn)
 
 bool MyFindHandler::CanHandle(const Command *com)
 {
-    response = "";
+    response = Response();
 
     if(com->value == "myfind")
     {
@@ -24,7 +24,7 @@ bool MyFindHandler::CanHandle(const Command *com)
         }
         else
         {
-            response = "No file provided.";
+            response =  Response("No file provided.", Error);
         }
     }
 
@@ -51,12 +51,14 @@ void MyFindHandler::Handle()
 
     if(pathToFile.empty())
     {
-        response = "File not found.";
+        response = Response("File not found.", Error);
     }
     else
     {
-        response = "Path: " + pathToFile + "\n";
-        response += GetFileInfo(pathToFile);
+        std::string result = "Path: " + pathToFile + "\n";
+        result += GetFileInfo(pathToFile);
+
+        response = Response(result, Success);
     }
 }
 
