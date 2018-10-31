@@ -1,14 +1,23 @@
+#include <utility>
+
 #pragma once
 
 #include "../Models/Command.h"
+#include "../Services/LogInService.h"
 
 class Handler
 {
 protected:
-    const Command *command;
+    LogInService *logInService;
+    bool mustBeLoggedIn{};
+
+    const Command *command{};
     std::string response;
-    bool mustBeLoggedIn;
 public:
+    explicit Handler(LogInService *logInService)
+    {
+        this->logInService = logInService;
+    };
     ~Handler() = default;
 
     virtual bool CanHandle(const Command *command) = 0;
@@ -22,5 +31,23 @@ public:
     std::string GetResponse()
     {
         return response;
+    }
+
+    bool CheckLogIn()
+    {
+        if(mustBeLoggedIn)
+        {
+            if(logInService->IsLoggdedIn())
+            {
+                return true;
+            }
+            else
+            {
+                response = "You must be logged in to execute this command.";
+                return false;
+            }
+        }
+
+        return true;
     }
 };

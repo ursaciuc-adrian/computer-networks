@@ -1,15 +1,13 @@
+#include <utility>
+
 #include <fstream>
 #include <iostream>
 #include "LogInHandler.h"
 
 #define DATABASE "users.txt"
 
-LogInHandler::LogInHandler()
-{
-    this->mustBeLoggedIn = false;
-}
-
-LogInHandler::LogInHandler(bool mustBeLoggedIn)
+LogInHandler::LogInHandler(LogInService *logInService, bool mustBeLoggedIn)
+    :Handler(logInService)
 {
     this->mustBeLoggedIn = mustBeLoggedIn;
 }
@@ -35,7 +33,6 @@ bool LogInHandler::CanHandle(const Command *com)
 
 void LogInHandler::Handle()
 {
-    this->LogOut();
     response = "";
 
     std::ifstream fin(DATABASE);
@@ -52,29 +49,17 @@ void LogInHandler::Handle()
         fin.getline(str, 100);
         if(str == command->GetArgument(0)->value)
         {
-            isLoggedIn = true;
-            username = command->GetArgument(0)->value;
+            logInService->LogIn(command->GetArgument(0)->value);
 
-            response = "Welcome " + username + "!";
+            response = "Welcome " + logInService->GetUsername() + "!";
         }
     }
 
     fin.close();
 
-    if(isLoggedIn == false)
+    if(!logInService->IsLoggdedIn())
     {
         response = "Invalid username.";
     }
-}
-
-bool LogInHandler::IsLoggedIn()
-{
-    return isLoggedIn;
-}
-
-void LogInHandler::LogOut()
-{
-    this->isLoggedIn = false;
-    this->username = "";
 }
 

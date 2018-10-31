@@ -5,12 +5,8 @@
 #include "MyFindHandler.h"
 #include "../Helpers/FileHelper.h"
 
-MyFindHandler::MyFindHandler()
-{
-    this->mustBeLoggedIn = false;
-}
-
-MyFindHandler::MyFindHandler(bool mustBeLoggedIn)
+MyFindHandler::MyFindHandler(LogInService *logInService, bool mustBeLoggedIn)
+        :Handler(logInService)
 {
     this->mustBeLoggedIn = mustBeLoggedIn;
 }
@@ -37,6 +33,11 @@ bool MyFindHandler::CanHandle(const Command *com)
 
 void MyFindHandler::Handle()
 {
+    if(!CheckLogIn())
+    {
+        return;
+    }
+
     std::string pathToFile = FindFile("./", command->GetArgument(0)->value);
 
     if(pathToFile.empty())

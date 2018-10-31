@@ -6,8 +6,7 @@
 class MyFindHandler: public Handler
 {
 public:
-    MyFindHandler();
-    MyFindHandler(bool mustBeLoggedIn);
+    MyFindHandler(LogInService *logInService, bool mustBeLoggedIn);
 
     bool CanHandle(const Command *command) override;
     void Handle() override;

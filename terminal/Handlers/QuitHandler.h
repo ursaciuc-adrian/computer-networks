@@ -6,8 +6,7 @@
 class QuitHandler: public Handler
 {
 public:
-    QuitHandler();
-    QuitHandler(bool mustBeLoggedIn);
+    QuitHandler(LogInService *logInService, bool mustBeLoggedIn);
 
     bool CanHandle(const Command *command) override;
     void Handle() override;

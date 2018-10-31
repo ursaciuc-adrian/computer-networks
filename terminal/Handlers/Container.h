@@ -9,4 +9,5 @@ class Container {
 public:
     std::string command;
     std::vector<Handler*> handlers;
+    bool isLoggedIn;
 };

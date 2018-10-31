@@ -6,8 +6,7 @@
 class MyStatHandler: public Handler
 {
 public:
-    MyStatHandler();
-    MyStatHandler(bool mustBeLoggedIn);
+    MyStatHandler(LogInService *logInService, bool mustBeLoggedIn);
 
     bool CanHandle(const Command *command) override;
 

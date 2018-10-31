@@ -80,10 +80,11 @@ void ChildProcess(int socket)
 
 int main()
 {
-    container.handlers.push_back(new LogInHandler());
-    container.handlers.push_back(new QuitHandler());
-    container.handlers.push_back(new MyFindHandler());
-    container.handlers.push_back(new MyStatHandler());
+    auto *logInService = new LogInService();
+    container.handlers.push_back(new LogInHandler(logInService, false));
+    container.handlers.push_back(new QuitHandler(logInService, true));
+    container.handlers.push_back(new MyFindHandler(logInService, true));
+    container.handlers.push_back(new MyStatHandler(logInService, true));
 
     std::cout << "Better than linux terminal. (v0.0.2)" << std::endl << std::endl;
 

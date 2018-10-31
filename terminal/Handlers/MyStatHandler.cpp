@@ -2,12 +2,8 @@
 #include "MyStatHandler.h"
 #include "../Helpers/FileHelper.h"
 
-MyStatHandler::MyStatHandler()
-{
-    this->mustBeLoggedIn = false;
-}
-
-MyStatHandler::MyStatHandler(bool mustBeLoggedIn)
+MyStatHandler::MyStatHandler(LogInService *logInService, bool mustBeLoggedIn)
+        :Handler(logInService)
 {
     this->mustBeLoggedIn = mustBeLoggedIn;
 }
@@ -34,6 +30,11 @@ bool MyStatHandler::CanHandle(const Command *com)
 
 void MyStatHandler::Handle()
 {
+    if(!CheckLogIn())
+    {
+        return;
+    }
+
     response = GetFileInfo("./users.txt");
 }
 
