@@ -41,7 +41,7 @@ Response HandleCommand(const std::string &str)
         }
     }
 
-    return Response();
+    return Response("Command not found.", Error);
 }
 
 void ParentProcess(int socket)
@@ -108,8 +108,8 @@ int main()
         auto *logInService = new LogInService();
         container.handlers.push_back(new LogInHandler(logInService, false));
         container.handlers.push_back(new QuitHandler(logInService, false));
-        container.handlers.push_back(new MyFindHandler(logInService, false));
-        container.handlers.push_back(new MyStatHandler(logInService, false));
+        container.handlers.push_back(new MyFindHandler(logInService, true));
+        container.handlers.push_back(new MyStatHandler(logInService, true));
 
         if (parent)
         {
