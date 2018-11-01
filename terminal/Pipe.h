@@ -56,7 +56,7 @@ public:
         std::string str;
         Response response = Response();
 
-        while (response.GetType() != Quit)
+        //while (response.GetType() != Quit)
         {
             std::cout << "> ";
             std::getline(std::cin, str);
@@ -70,7 +70,7 @@ public:
 
             response = Response(value, type);
 
-            std::cout << response.GetValue() << std::endl;
+            std::cout << value<< std::endl;
         }
     }
 
@@ -79,51 +79,19 @@ public:
         std::string str;
         Response response = Response();
 
-        while (response.GetType() != Quit)
+      //  while (response.GetType() != Quit)
         {
             Read(socket, str);
+            // std::cout << str << std::endl;
+            //response = HandleCommand(str);
 
-            response = HandleCommand(str);
-
-            Write(socket, response.GetValue());
-            Write(socket, ResponseTypeMap[response.GetType()]);
+            Write(socket, "Not working");
+            Write(socket, "Error");
         }
     }
 
     void Start()
     {
-        int fd[2];
-        std::string buffer;
-        auto *logInService = new LogInService();
-        container.handlers.push_back(new LogInHandler(logInService, false));
-        container.handlers.push_back(new QuitHandler(logInService, false));
-        container.handlers.push_back(new MyFindHandler(logInService, true));
-        container.handlers.push_back(new MyStatHandler(logInService, true));
-        if ( pipe(fd) < 0 ) {
-            perror( "pipe" );
-            exit( 1 );
-        }
 
-        switch( fork() ) {
-            case -1:
-            {
-                perror( "fork" );
-                exit( 1 );
-            }
-            case 0:
-            {
-                /*child process*/
-                close(fd[1]);
-                ChildProcess(fd[0]);
-                exit(1);
-            }
-            default:
-            {
-
-                close(fd[0]);
-                ParentProcess(fd[1]);
-                break;
-            }
-        }
     }
 };

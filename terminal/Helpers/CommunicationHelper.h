@@ -25,12 +25,15 @@ static int Read(int socket, std::string &str)
     unsigned long length;
     if(read(socket, &length, sizeof(length)) == -1)
     {
+        std::cout << "error" <<std::endl;
         return -1;
     }
 
     std::vector<char> buffer(length + 1);
     if(read(socket, buffer.data(), length) == -1)
     {
+        std::cout << "error" <<std::endl;
+
         return -1;
     }
 
