@@ -18,16 +18,9 @@ static std::string GetFileInfo(std::string path) {
     stream << "Owner: " << buf.st_uid << std::endl;
     stream << "Group: " << buf.st_gid << std::endl;
     stream << "Protection: " << buf.st_mode << std::endl;
-    char timeBuffer[80];
-    struct tm localTime;
 
-    localtime_r(&buf.st_atime, &localTime);
-    strftime(timeBuffer, sizeof timeBuffer, "%a, %d %b %Y %T", &localTime);
-    stream << "Last accessed: " << timeBuffer << std::endl;
-
-    localtime_r(&buf.st_mtime, &localTime);
-    strftime(timeBuffer, sizeof timeBuffer, "%a, %d %b %Y %T", &localTime);
-    stream << "Last modified: " << timeBuffer;
+    stream << "Last accessed: " << ctime(&buf.st_atime);
+    stream << "Last modified: " << ctime(&buf.st_mtime);
 
     return stream.str();
 }
